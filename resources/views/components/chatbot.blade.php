@@ -15,7 +15,8 @@
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 translate-y-10 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-         class="fixed bottom-[110px] left-4 right-4 sm:absolute sm:bottom-[80px] sm:left-auto sm:right-0 sm:w-[400px] glass-panel rounded-2xl overflow-hidden flex flex-col shadow-2xl h-[500px] max-h-[75vh] z-50">
+         style="bottom: 110px !important;"
+         class="fixed left-4 right-4 sm:left-auto sm:right-8 sm:w-[400px] glass-panel rounded-2xl overflow-hidden flex flex-col shadow-2xl h-[500px] max-h-[75vh] z-50">
         
         <!-- Header -->
         <div class="bg-industrial-blue p-4 text-white shrink-0">
