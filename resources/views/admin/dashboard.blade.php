@@ -1,17 +1,18 @@
 <x-admin-layout>
-    <div class="space-y-8">
+    <div class="space-y-6 lg:space-y-8">
         <!-- Header -->
-        <div class="flex justify-between items-end">
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-between sm:items-end sm:space-y-0">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tighter">OPERATIONAL <span class="text-industrial-orange">OVERVIEW</span></h1>
-                <p class="text-slate-500 text-sm mt-1">Real-time status of the industrial compressor ecosystem.</p>
+                <h1 class="text-2xl lg:text-3xl font-extrabold tracking-tighter">OPERATIONAL <span class="text-industrial-orange">OVERVIEW</span></h1>
+                <p class="text-slate-500 text-xs lg:text-sm mt-1">Real-time status of the industrial compressor ecosystem.</p>
             </div>
-            <div class="flex space-x-3">
-                <button class="bg-white border border-slate-200 px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-slate-50 transition-all flex items-center space-x-2">
+            <div class="flex space-x-2 sm:space-x-3">
+                <button class="flex-1 sm:flex-none bg-white border border-slate-200 px-3 py-2 rounded-lg text-[10px] sm:text-sm font-bold shadow-sm hover:bg-slate-50 transition-all flex items-center justify-center space-x-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    <span>Export Report</span>
+                    <span class="hidden xs:inline">Export Report</span>
+                    <span class="xs:hidden">Export</span>
                 </button>
-                <a href="{{ route('admin.products.create') }}" class="btn-industrial py-2 px-4 text-xs inline-block">
+                <a href="{{ route('admin.products.create') }}" class="flex-1 sm:flex-none btn-industrial py-2 px-4 text-[10px] sm:text-xs text-center inline-block">
                     New Product
                 </a>
             </div>

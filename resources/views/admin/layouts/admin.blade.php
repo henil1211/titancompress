@@ -15,26 +15,44 @@
         }
     </style>
 </head>
-<body class="bg-[#f8fafc] font-sans antialiased text-slate-900" x-data="{ sidebarOpen: true }">
+<body class="bg-[#f8fafc] font-sans antialiased text-slate-900" 
+      x-data="{ 
+          sidebarOpen: window.innerWidth >= 1024,
+          toggleSidebar() { this.sidebarOpen = !this.sidebarOpen }
+      }"
+      @resize.window="if (window.innerWidth >= 1024) sidebarOpen = true">
     
     <div class="flex h-screen overflow-hidden">
         
+        <!-- Mobile Sidebar Overlay -->
+        <div x-show="sidebarOpen" 
+             @click="sidebarOpen = false" 
+             x-cloak 
+             class="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm lg:hidden transition-opacity"
+             x-transition:enter="transition-opacity ease-linear duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity ease-linear duration-300"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0">
+        </div>
+        
         <!-- Sidebar -->
         <aside 
-            class="fixed inset-y-0 left-0 z-50 w-72 bg-industrial-blue text-white transition-transform duration-300 transform lg:static lg:inset-0"
+            class="fixed inset-y-0 left-0 z-50 w-72 bg-industrial-blue text-white transition-all duration-300 transform lg:static lg:inset-0 shadow-2xl lg:shadow-none"
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:hidden'"
         >
             <div class="flex flex-col h-full">
                 <!-- Sidebar Header -->
                 <div class="p-6 flex items-center justify-between border-b border-white/10">
                     <span class="text-xl font-extrabold tracking-tighter">TITAN<span class="text-industrial-orange">ADMIN</span></span>
-                    <button @click="sidebarOpen = false" class="lg:hidden text-slate-400">
+                    <button @click="sidebarOpen = false" class="lg:hidden p-1 rounded-lg hover:bg-white/10 transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
 
                 <!-- Navigation -->
-                <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+                <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto custom-scrollbar">
                     <x-admin.sidebar-item icon="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" label="Dashboard" route="admin.dashboard" />
                     <x-admin.sidebar-item icon="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" label="Products" route="admin.products.index" />
                     <x-admin.sidebar-item icon="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" label="RFQs" route="admin.rfqs.index" />
@@ -49,7 +67,7 @@
                 <!-- Sidebar Footer -->
                 <div class="p-6 bg-slate-900/50">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-industrial-orange flex items-center justify-center font-bold">
+                        <div class="w-10 h-10 rounded-full bg-industrial-orange flex items-center justify-center font-bold text-white shadow-lg">
                             {{ substr(Auth::user()->name ?? 'A', 0, 1) }}
                         </div>
                         <div class="flex-1 min-w-0">
@@ -62,16 +80,16 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 relative overflow-y-auto focus:outline-none bg-slate-50">
+        <main class="flex-1 relative overflow-y-auto focus:outline-none bg-slate-50 transition-all duration-300">
             <!-- Top Navbar -->
             <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40">
-                <div class="px-6 py-4 flex items-center justify-between">
-                    <button @click="sidebarOpen = true" class="lg:hidden p-2 text-slate-500">
+                <div class="px-4 lg:px-6 py-4 flex items-center justify-between">
+                    <button @click="sidebarOpen = true" class="lg:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-lg transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                     
-                    <div class="flex-1 px-4">
-                        <div class="relative w-full max-w-md">
+                    <div class="flex-1 px-2 lg:px-4">
+                        <div class="relative w-full max-w-md hidden sm:block">
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </span>
@@ -79,7 +97,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2 lg:space-x-4">
                         <button class="p-2 text-slate-500 hover:text-industrial-orange transition-colors relative">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                             <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
@@ -105,7 +123,7 @@
             </header>
 
             <!-- Page Content -->
-            <div class="p-8">
+            <div class="p-4 lg:p-8">
                 {{ $slot }}
             </div>
         </main>
