@@ -30,4 +30,4 @@ RUN npm run build
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 
 # Start the application
-CMD php artisan serve --host=0.0.0.0 --port=$PORT
+CMD touch /app/database/database.sqlite && php artisan migrate:fresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT
