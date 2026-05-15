@@ -67,5 +67,37 @@ class CatalogSeeder extends Seeder
             ['attribute_id' => $flowAttr->id, 'value' => '6.5'],
             ['attribute_id' => $powerAttr->id, 'value' => '37'],
         ]);
+
+        // 4. Create Product 2
+        $product2 = \App\Domains\Product\Models\Product::create([
+            'category_id' => $piston->id,
+            'name' => 'Hercules 150 High Pressure',
+            'slug' => 'hercules-150-high-pressure',
+            'sku' => 'HER-150-P',
+            'short_description' => 'Dual-stage reciprocating compressor for high-pressure applications.',
+            'status' => 'active',
+            'featured' => false,
+        ]);
+
+        $product2->specifications()->createMany([
+            ['attribute_id' => $flowAttr->id, 'value' => '1.5'],
+            ['attribute_id' => $powerAttr->id, 'value' => '11'],
+        ]);
+
+        // 5. Create Product 3
+        $product3 = \App\Domains\Product\Models\Product::create([
+            'category_id' => $rotary->id,
+            'name' => 'Atlas Pro 300',
+            'slug' => 'atlas-pro-300',
+            'sku' => 'ATL-300-PRO',
+            'short_description' => 'Compact and highly efficient VFD screw compressor.',
+            'status' => 'active',
+            'featured' => true,
+        ]);
+
+        $product3->specifications()->createMany([
+            ['attribute_id' => $flowAttr->id, 'value' => '4.2'],
+            ['attribute_id' => $powerAttr->id, 'value' => '22'],
+        ]);
     }
 }
