@@ -1,10 +1,10 @@
-<div x-data="chatbot()" class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-[100]">
+<div x-data="chatbot()" class="fixed bottom-8 right-8 z-[100]">
     <!-- Toggle Button -->
-    <button @click="open = !open" class="w-14 h-14 sm:w-16 sm:h-16 bg-industrial-orange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
-        <svg x-show="!open" class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button @click="open = !open" class="w-16 h-16 bg-industrial-orange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+        <svg x-show="!open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
         </svg>
-        <svg x-show="open" class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg x-show="open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
     </button>
@@ -15,7 +15,7 @@
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 translate-y-10 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-         class="absolute bottom-16 right-0 w-[calc(100vw-2rem)] sm:w-96 sm:bottom-20 glass-panel rounded-2xl overflow-hidden flex flex-col shadow-2xl h-[500px] max-h-[75vh]">
+         class="fixed bottom-[6.5rem] right-4 left-4 sm:absolute sm:bottom-20 sm:right-0 sm:left-auto sm:w-96 glass-panel rounded-2xl overflow-hidden flex flex-col shadow-2xl h-[500px] max-h-[75vh]">
         
         <!-- Header -->
         <div class="bg-industrial-blue p-4 text-white">
