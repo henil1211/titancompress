@@ -22,7 +22,7 @@ WORKDIR /app
 COPY . /app
 
 # Install PHP and Node dependencies, then build Vite assets
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader
 RUN npm install
 RUN npm run build
 
