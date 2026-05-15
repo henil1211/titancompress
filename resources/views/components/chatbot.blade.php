@@ -1,12 +1,21 @@
-<div x-data="chatbot()" class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-[100] flex flex-col items-end">
-    
-    <!-- Chat Window (Placed above button in DOM for flex-col upward stacking) -->
+<div x-data="chatbot()" class="fixed bottom-8 right-8 z-[100]">
+    <!-- Toggle Button -->
+    <button @click="open = !open" class="w-16 h-16 bg-industrial-orange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform relative z-10">
+        <svg x-show="!open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+        </svg>
+        <svg x-show="open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+
+    <!-- Chat Window -->
     <div x-show="open" 
          x-cloak
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 translate-y-10 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-         class="mb-4 w-[calc(100vw-2rem)] sm:w-96 glass-panel rounded-2xl overflow-hidden flex flex-col shadow-2xl h-[500px] max-h-[75vh]">
+         class="absolute bottom-20 right-0 w-[calc(100vw-4rem)] sm:w-96 glass-panel rounded-2xl overflow-hidden flex flex-col shadow-2xl h-[500px] max-h-[70vh]">
         
         <!-- Header -->
         <div class="bg-industrial-blue p-4 text-white shrink-0">
@@ -15,10 +24,10 @@
         </div>
 
         <!-- Messages & Options -->
-        <div class="flex-1 p-4 overflow-y-auto bg-white flex flex-col gap-4" id="chat-messages">
+        <div class="flex-1 p-4 overflow-y-auto bg-white flex flex-col gap-4 custom-scrollbar" id="chat-messages">
             <template x-for="msg in messages" :key="msg.id">
                 <div class="w-full flex" :class="msg.role === 'user' ? 'justify-end' : 'justify-start items-end'">
-                    <!-- Bot Avatar Placeholder (only for assistant) -->
+                    <!-- Bot Avatar -->
                     <template x-if="msg.role === 'assistant'">
                         <div class="w-6 h-6 rounded-full bg-industrial-blue shrink-0 flex items-center justify-center mr-2 mb-1 shadow-sm">
                             <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -26,7 +35,7 @@
                     </template>
                     
                     <div :class="msg.role === 'user' ? 'bg-slate-800 text-white rounded-2xl rounded-br-sm' : 'bg-slate-50 text-slate-800 border border-slate-100 rounded-2xl rounded-bl-sm'" 
-                         class="inline-block p-3.5 text-[13px] shadow-sm max-w-[260px] leading-relaxed">
+                         class="inline-block p-3.5 text-[13px] shadow-sm max-w-[85%] leading-relaxed">
                         <span x-text="msg.content"></span>
                     </div>
                 </div>
@@ -45,7 +54,7 @@
                 </div>
             </div>
 
-            <!-- Quick Options (Full Width Cards) -->
+            <!-- Quick Options -->
             <div class="flex flex-col gap-2 mt-2 pt-2 border-t border-slate-50">
                 <template x-for="(question, index) in predefinedQuestions" :key="index">
                     <button @click="sendPredefined(question)" :disabled="loading"
@@ -57,16 +66,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Toggle Button -->
-    <button @click="open = !open" class="w-16 h-16 shrink-0 bg-industrial-orange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
-        <svg x-show="!open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-        </svg>
-        <svg x-show="open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-    </button>
 </div>
 
 <style>
