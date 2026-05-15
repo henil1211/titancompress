@@ -1,24 +1,15 @@
-<div x-data="chatbot()" class="fixed bottom-8 right-8 z-[100]">
-    <!-- Toggle Button -->
-    <button @click="open = !open" class="w-16 h-16 bg-industrial-orange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
-        <svg x-show="!open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-        </svg>
-        <svg x-show="open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-    </button>
-
-    <!-- Chat Window -->
+<div x-data="chatbot()" class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-[100] flex flex-col items-end">
+    
+    <!-- Chat Window (Placed above button in DOM for flex-col upward stacking) -->
     <div x-show="open" 
          x-cloak
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 translate-y-10 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-         class="fixed bottom-28 right-4 left-4 sm:absolute sm:bottom-20 sm:right-0 sm:left-auto sm:w-96 glass-panel rounded-2xl overflow-hidden flex flex-col shadow-2xl h-[500px] max-h-[75vh]">
+         class="mb-4 w-[calc(100vw-2rem)] sm:w-96 glass-panel rounded-2xl overflow-hidden flex flex-col shadow-2xl h-[500px] max-h-[75vh]">
         
         <!-- Header -->
-        <div class="bg-industrial-blue p-4 text-white">
+        <div class="bg-industrial-blue p-4 text-white shrink-0">
             <h4 class="font-bold tracking-tighter">TITAN AI ASSISTANT</h4>
             <p class="text-[10px] text-slate-400 uppercase tracking-widest">Always Active | Industrial Grade</p>
         </div>
@@ -66,6 +57,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Toggle Button -->
+    <button @click="open = !open" class="w-16 h-16 shrink-0 bg-industrial-orange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+        <svg x-show="!open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+        </svg>
+        <svg x-show="open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
 </div>
 
 <style>
