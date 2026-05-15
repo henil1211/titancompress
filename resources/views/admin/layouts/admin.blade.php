@@ -15,19 +15,21 @@
         }
     </style>
 </head>
-<body class="bg-[#f8fafc] font-sans antialiased text-slate-900" 
+<body class="bg-[#f8fafc] font-sans antialiased text-slate-900 overflow-x-hidden" 
       x-data="{ 
-          sidebarOpen: window.innerWidth >= 1024,
+          sidebarOpen: false,
           toggleSidebar() { this.sidebarOpen = !this.sidebarOpen }
       }"
-      @resize.window="if (window.innerWidth >= 1024) sidebarOpen = true">
+      x-init="sidebarOpen = window.innerWidth >= 1024"
+      @resize.window="sidebarOpen = window.innerWidth >= 1024"
+      @popstate.window="sidebarOpen = window.innerWidth >= 1024">
     
     <div class="flex h-screen overflow-hidden">
         
         <!-- Mobile Sidebar Overlay -->
         <div x-show="sidebarOpen" 
+             x-cloak
              @click="sidebarOpen = false" 
-             x-cloak 
              class="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm lg:hidden transition-opacity"
              x-transition:enter="transition-opacity ease-linear duration-300"
              x-transition:enter-start="opacity-0"
@@ -40,7 +42,8 @@
         <!-- Sidebar -->
         <aside 
             class="fixed inset-y-0 left-0 z-50 w-72 bg-industrial-blue text-white transition-all duration-300 transform lg:static lg:inset-0 shadow-2xl lg:shadow-none"
-            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:hidden'"
+            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+            x-cloak
         >
             <div class="flex flex-col h-full">
                 <!-- Sidebar Header -->
@@ -89,7 +92,7 @@
                     </button>
                     
                     <div class="flex-1 px-2 lg:px-4">
-                        <div class="relative w-full max-w-md hidden sm:block">
+                        <div class="relative w-full max-w-md hidden md:block">
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </span>
