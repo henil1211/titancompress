@@ -21,8 +21,8 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             
             <!-- Product Image Gallery -->
-            <div class="space-y-4 lg:sticky lg:top-24">
-                <div class="bg-white border border-slate-200 p-8 rounded-xl shadow-lg flex items-center justify-center h-[500px]">
+            <div class="space-y-4 static lg:sticky lg:top-24">
+                <div class="bg-white border border-slate-200 p-8 rounded-xl shadow-lg flex items-center justify-center h-[350px] lg:h-[500px]">
                     @if(str_contains($product->slug, 'piston'))
                         <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&q=80&w=800" class="max-w-full max-h-full object-contain mix-blend-multiply" alt="{{ $product->name }}">
                     @elseif(str_contains($product->slug, 'screw'))
