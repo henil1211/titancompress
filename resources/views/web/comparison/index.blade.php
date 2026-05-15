@@ -23,8 +23,8 @@
                 </div>
             </div>
 
-            <!-- Comparison Matrix -->
-            <div class="relative overflow-x-auto rounded-3xl border border-slate-200 shadow-2xl bg-white" id="comparison-table">
+            <!-- Desktop Comparison Matrix (Hidden on Mobile) -->
+            <div class="hidden lg:block relative overflow-x-auto rounded-3xl border border-slate-200 shadow-2xl bg-white" id="comparison-table">
                 <table class="w-full border-collapse">
                     <thead>
                         <tr class="bg-slate-50">
@@ -106,6 +106,70 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Mobile Comparison View (Hidden on Desktop) -->
+            <div class="lg:hidden space-y-8">
+                @foreach($products as $product)
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden relative group">
+                    <button @click="removeItem('{{ $product->id }}')" class="absolute top-4 right-4 z-10 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-red-500 shadow hover:bg-red-500 hover:text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                    <div class="p-6 bg-slate-50 border-b border-slate-100 flex flex-col items-center text-center">
+                        <div class="h-32 w-full bg-white rounded-xl mb-4 flex items-center justify-center p-2 shadow-sm border border-slate-100">
+                            @if(str_contains($product->slug, 'piston'))
+                                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&q=80&w=400" class="max-h-full object-contain" alt="{{ $product->name }}">
+                            @elseif(str_contains($product->slug, 'screw'))
+                                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=400" class="max-h-full object-contain" alt="{{ $product->name }}">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=400" class="max-h-full object-contain grayscale" alt="{{ $product->name }}">
+                            @endif
+                        </div>
+                        <p class="text-[10px] font-bold text-industrial-orange uppercase tracking-widest">{{ $product->category->name }}</p>
+                        <h3 class="text-xl font-black tracking-tight mt-1">{{ $product->name }}</h3>
+                        <p class="text-xs text-slate-400 font-mono mt-1">{{ $product->sku }}</p>
+                        <a href="{{ route('rfq.show', ['product' => $product->id]) }}" class="mt-4 w-full text-center bg-slate-900 text-white py-3 rounded-xl text-xs font-bold tracking-widest hover:bg-industrial-orange transition-colors">INQUIRE NOW</a>
+                    </div>
+                    <div class="p-0">
+                        @foreach($matrix as $group)
+                        <div class="bg-industrial-blue/5 px-6 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-industrial-blue border-y border-slate-100">
+                            {{ $group['name'] }}
+                        </div>
+                        <div class="divide-y divide-slate-50">
+                            @foreach($group['attributes'] as $attr)
+                            @php 
+                                $val = $attr['values'][$product->id] ?? 'N/A';
+                                $isHighlighted = in_array($val, $attr['highlight'] ?? []);
+                            @endphp
+                            <div class="flex justify-between items-center px-6 py-4 hover:bg-slate-50 transition-colors">
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-slate-700">{{ $attr['name'] }}</span>
+                                    @if($attr['unit'])
+                                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">{{ $attr['unit'] }}</span>
+                                    @endif
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm {{ $isHighlighted ? 'text-industrial-blue font-black' : 'text-slate-600 font-medium' }}">{{ $val }}</span>
+                                    @if($isHighlighted)
+                                    <div class="w-1.5 h-1.5 rounded-full bg-industrial-orange animate-pulse"></div>
+                                    @endif
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endforeach
+            
+                @if(count($products) < 4)
+                <a href="{{ route('products.index') }}" class="block w-full border-2 border-dashed border-slate-300 rounded-3xl p-8 text-center hover:border-industrial-orange group transition-colors">
+                    <div class="w-12 h-12 bg-slate-50 rounded-full mx-auto flex items-center justify-center text-slate-400 group-hover:text-industrial-orange transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    </div>
+                    <h4 class="mt-4 text-xs font-bold text-slate-500 uppercase tracking-widest group-hover:text-industrial-orange">Add System to Compare</h4>
+                </a>
+                @endif
             </div>
 
             <!-- AI Insights Modal -->
