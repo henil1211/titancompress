@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             CatalogSeeder::class,
-            CompressorSeeder::class,
             RFQStatusSeeder::class,
         ]);
     }
